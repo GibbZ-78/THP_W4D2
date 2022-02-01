@@ -2,29 +2,30 @@
 
 class Player
   attr_accessor :name, :life_points
-  @@all_players = []
+  # @@bot_players = []
 
   def initialize(player_name)
     @life_points = 10
     @name = player_name
+    # @@bot_players.push(self)
   end
 
   def show_state(spacer)
-    puts spacer+"  > #{self.name} has #{self.life_points}"+"\u2665".encode('utf-8')+" left."
+    puts spacer+"> #{self.name}[Bot] has #{self.life_points}"+"\u2665".encode('utf-8')+" left."
   end
 
-  def gets_damage(damage_amount)
+  def gets_damage(spacer, damage_amount)
     self.life_points -= damage_amount
     if self.life_points <= 0
-      puts "  > #{self.name} is dead..."
+      puts spacer+"> #{self.name} is dead..."
     end
   end
 
-  def attacks(target_player)
-    print "  > #{self.name} attacks #{target_player.name} "
+  def attacks(spacer, target_player)
+    print spacer+"> #{self.name} attacks #{target_player.name} "
     tmp_damage = Player.compute_damage
     puts "inflicting him/her #{tmp_damage}"+"\u2665".encode('utf-8')+" of damages."
-    target_player.gets_damage(tmp_damage)
+    target_player.gets_damage(spacer, tmp_damage)
   end
 
   private
